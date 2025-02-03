@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOW_ALL_ORIGINS = True  
 
-CSRF_TRUSTED_ORIGINS = ['https://job-buop.onrender.com', 'http://127.0.0.1:5500']
+CSRF_TRUSTED_ORIGINS = ['https://project-job.onrender.com', 'http://127.0.0.1:5500']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
