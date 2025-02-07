@@ -24,6 +24,7 @@ class EmployeeViewset(viewsets.ModelViewSet):
 
 class EmployeeRegistrationApiView(APIView):
     serializer_class = serializers.RegistrationSerializer
+    permission_classes = [AllowAny]
    
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
