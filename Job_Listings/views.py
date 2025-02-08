@@ -7,6 +7,8 @@ from employee.models import Employee
 # Corrected Viewset for JobListing
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import permission_classes
+# from rest_framework import generics, permissions
+# from rest_framework.exceptions import PermissionDenied
 
 @permission_classes([AllowAny])
 class JobListingViewset(viewsets.ModelViewSet):
@@ -33,3 +35,16 @@ class JobListingListCreateView(generics.ListCreateAPIView):
 class JobListingDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.JobListing.objects.all()
     serializer_class = JobListingSerializer
+    
+    
+
+    def perform_update(self, serializer):
+        job_listing = self.get_object()
+        if job_listing.employer != self.request.user.employee:
+            raise PermissionDenied("You are not allowed to update this job listing.")
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        if instance.employer != self.request.user.employee:
+            raise PermissionDenied("You are not allowed to delete this job listing.")
+        instance.delete()
