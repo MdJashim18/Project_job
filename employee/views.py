@@ -17,6 +17,8 @@ from django.shortcuts import redirect
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
 from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 # from .serializers import PasswordResetSerializer, SetNewPasswordSerializer
 
 class EmployeeViewset(viewsets.ModelViewSet):
@@ -129,6 +131,7 @@ class VerifyTokenAPIView(APIView):
 
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class PasswordResetRequestView(APIView):
     permission_classes = [AllowAny]
 
@@ -146,7 +149,7 @@ class PasswordResetRequestView(APIView):
         send_mail(
             subject="Password Reset Request",
             message=f"Click the link below to reset your password:\n{reset_link}",
-            from_email="your_email@example.com",
+            from_email="mdjashimuddinrubel70905@gmail.com",
             recipient_list=[email],
             fail_silently=False,
         )
