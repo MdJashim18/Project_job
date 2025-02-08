@@ -14,6 +14,7 @@ from rest_framework.decorators import permission_classes
 class JobListingViewset(viewsets.ModelViewSet):
     queryset = models.JobListing.objects.all()  # Should refer to JobListing model
     serializer_class = JobListingSerializer
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
 
 class JobListingListCreateView(generics.ListCreateAPIView):
     queryset = models.JobListing.objects.all()
