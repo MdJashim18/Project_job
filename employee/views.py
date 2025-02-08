@@ -19,6 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from .serializers import SetNewPasswordSerializer
 # from .serializers import PasswordResetSerializer, SetNewPasswordSerializer
 
 class EmployeeViewset(viewsets.ModelViewSet):
@@ -144,7 +145,7 @@ class PasswordResetRequestView(APIView):
         user = User.objects.get(email=email)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
-        reset_link = f"https://project-job.onrender.com/password-reset-confirm/{uid}/{token}/"
+        reset_link = f"https://project-job.onrender.com/employee/password-reset-confirm/{uid}/{token}/"
 
         send_mail(
             subject="Password Reset Request",
