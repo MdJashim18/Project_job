@@ -10,7 +10,12 @@ class JobListingSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = JobListing
-        fields = ['id', 'title', 'employer', 'description', 'requirements', 'location', 'date_posted' ,'company_image','categories','company_name']
+        fields = '__all__'
         read_only_fields = ['date_posted', 'employer']
+        
+    def validate(self, data):
+        if "title" not in data or "description" not in data:
+            raise serializers.ValidationError("Title and description are required fields.")
+        return data
         
     

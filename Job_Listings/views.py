@@ -15,6 +15,10 @@ class JobListingViewset(viewsets.ModelViewSet):
     queryset = models.JobListing.objects.all()  # Should refer to JobListing model
     serializer_class = JobListingSerializer
     http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+    
+    def update(self, request, *args, **kwargs):
+        print("Received Data:", request.data)  # Debugging
+        return super().update(request, *args, **kwargs)
 
 class JobListingListCreateView(generics.ListCreateAPIView):
     queryset = models.JobListing.objects.all()
